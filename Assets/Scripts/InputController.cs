@@ -30,6 +30,15 @@ public class InputController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
+		if (Input.GetKey ("h"))
+		{
+			game.NotUseSightline ();
+		}
+		else if (Input.GetKey ("j"))
+		{
+			game.UseSightline ();
+		}
+
 		if (game.GetState () == States.END)
 		{
 			if (Input.GetKey ("space"))
@@ -113,6 +122,7 @@ public class InputController : MonoBehaviour {
 					Vector3 direction = Input.mousePosition - position;
 					float angle = Mathf.Atan2 (direction.y, direction.x) * Mathf.Rad2Deg;
 
+					/*
 					if (angle > max_angle)
 					{
 						angle = max_angle;
@@ -121,8 +131,13 @@ public class InputController : MonoBehaviour {
 					{
 						angle = min_angle;
 					}
+					*/
 
 					sight.Rotate (angle);
+				}
+				else
+				{
+
 				}
 			}
 		}
@@ -146,5 +161,15 @@ public class InputController : MonoBehaviour {
 	{
 		is_right = true;
 		is_right_last_frame = true;
+	}
+
+	public void SetSightline ()
+	{
+		is_using_mouse = true;
+	}
+
+	public void UnsetSightline ()
+	{
+		is_using_mouse = false;
 	}
 }

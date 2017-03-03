@@ -24,8 +24,8 @@ public class GuardController : MonoBehaviour {
 	public bool is_looking;
 	private float x_this_frame;
 	private float x_last_frame;
-	private float movement_speed;
-	private float movement_range;
+	public float movement_speed;
+	public float movement_range;
 	private float destroy_delay;
 
 	// Use this for initialization
@@ -47,8 +47,8 @@ public class GuardController : MonoBehaviour {
 		is_right_last_frame = true;
 		x_this_frame = original_x;
 		x_last_frame = original_x;
-		movement_speed = Random.Range (0.12f, 0.17f);
-		movement_range = Random.Range (10f, 20f);
+		movement_speed = Random.Range (0.15f, 0.25f);
+		movement_range = Random.Range (10f, 15f);
 		destroy_delay = 2f;
 	}
 
@@ -98,7 +98,7 @@ public class GuardController : MonoBehaviour {
 			{
 				// start walking animation
 				Walk ();
-				x_this_frame = original_x + Mathf.Cos (Time.time * movement_speed) * movement_range;
+				x_this_frame = original_x + Mathf.Sin (Time.time * movement_speed) * movement_range;
 				transform.position = new Vector3 (x_this_frame, transform.position.y, transform.position.z);
 				if (x_this_frame > x_last_frame)
 				{

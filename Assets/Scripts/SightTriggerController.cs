@@ -18,9 +18,7 @@ public class SightTriggerController : MonoBehaviour {
 	void Start ()
 	{
 		game = GameObject.Find ("Root").GetComponent <GameController> ();
-
 		root = transform.parent.parent;
-
 		is_player = false;
 		is_guard = false;
 		if (root.gameObject.tag == Tags.PLAYER)
@@ -32,7 +30,7 @@ public class SightTriggerController : MonoBehaviour {
 			is_guard = true;
 			guard = root.gameObject.GetComponent <GuardController> ();
 		}
-		sight = root.Find ("Sight");
+		sight = transform.parent;
 
 		guard_in_range = new List <Transform> ();
 
@@ -46,7 +44,6 @@ public class SightTriggerController : MonoBehaviour {
 		{
 			if (player_in_range.gameObject.GetComponent <PlayerController> ().GetInLight ()) // is player in light
 			{
-				Debug.Log (Vector3.Distance (player_in_range.position, transform.position) + " " + guard.GetSightRange ());
 				if (Vector3.Distance (player_in_range.position, transform.position) <= guard.GetSightRange ()) // is player in sight range
 				{
 					if (!is_notified) // notify game controller

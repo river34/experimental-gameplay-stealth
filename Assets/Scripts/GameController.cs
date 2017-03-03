@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour {
 	public int difficulty_level;
 	private InputController input;
 	private float start_time;
+	public bool is_using_sightline;
 
 	// levels
 	public List <GameObject> levelcards;
@@ -95,6 +96,7 @@ public class GameController : MonoBehaviour {
 		difficulty_level = 0;
 		input = gameObject.GetComponent <InputController> ();
 		start_time = Time.time;
+		is_using_sightline = true;
 
 		// levels
 		levelcards = generator.GenerateLevecards ();
@@ -111,8 +113,8 @@ public class GameController : MonoBehaviour {
 		tutorial_texts = new List <Transform> ();
 		tutorial_text_start_position_x = 6f;
 		tutorial_text_end_position_x = -20f;
-		tutorial_close_x_start = 0;
-		tutorial_close_x_end = -10f;
+		tutorial_close_x_start = 3f;
+		tutorial_close_x_end = -8f;
 		tutorial_close_speed = 1.2f;
 		color_speed = 0.3f;
 		skip_tutorial = false;
@@ -135,6 +137,17 @@ public class GameController : MonoBehaviour {
 			{
 				Blink (blink_color);
 			}
+		}
+
+		if (is_using_sightline)
+		{
+			input.SetSightline ();
+			player.SetSightline ();
+		}
+		else
+		{
+			input.UnsetSightline ();
+			player.UnsetSightline ();
 		}
 
 		// state machine
@@ -298,6 +311,7 @@ public class GameController : MonoBehaviour {
 
 	public void Restart ()
 	{
+		score = 0;
 		input.Init ();
 		player.Init ();
 		state = States.GAME;
@@ -369,18 +383,31 @@ public class GameController : MonoBehaviour {
 
 	void SetTutorial ()
 	{
-		tutorial_strings = new string[5];
-		tutorial_strings[0] = "Once upon a time, there lives a light stealer";
-		tutorial_strings[1] = "She steals light from the palace of darkness";
-		tutorial_strings[2] = "and brings it back to the world";
-		tutorial_strings[3] = "Use wasd or arrows to countrol the movement";
-		tutorial_strings[4] = "Hide in shadows to avoid being seen";
+		if (is_using_sightline)
+		{
+			tutorial_strings = new string[6];
+			tutorial_strings[0] = "once upon a time, there lives a light stealer";
+			tutorial_strings[1] = "who steals light from the palace of darkness";
+			tutorial_strings[2] = "and brings it back to the world";
+			tutorial_strings[3] = "use wasd or arrows to control the movement";
+			tutorial_strings[4] = "use mouse to countrol the line of sight";
+			tutorial_strings[5] = "hide in shadows to avoid being seen";
+		}
+		else
+		{
+			tutorial_strings = new string[5];
+			tutorial_strings[0] = "once upon a time, there lives a light stealer";
+			tutorial_strings[1] = "who steals light from the palace of darkness";
+			tutorial_strings[2] = "and brings it back to the world";
+			tutorial_strings[3] = "use wasd or arrows to control the movement";
+			tutorial_strings[4] = "hide in shadows to avoid being seen";
+		}
 
 		foreach (string tutorial_string in tutorial_strings)
 		{
 			GameObject new_tutorial_text = Instantiate (tutorial_text, tutorials);
 			tutorial_texts.Add (new_tutorial_text.transform);
-			new_tutorial_text.transform.position += Vector3.right * tutorial_text_start_position_x;
+			new_tutorial_text.transform.localPosition += Vector3.right * tutorial_text_start_position_x;
 			new_tutorial_text.GetComponent <TextMesh> ().color = new Color (1f, 1f, 1f, 0);
 			new_tutorial_text.GetComponent <TextMesh> ().text = tutorial_string;
 		}
@@ -391,22 +418,22 @@ public class GameController : MonoBehaviour {
 		if (tutorial_texts.Count > 0)
 		{
 			Transform tutorial_text = tutorial_texts[0];
-			if (tutorial_text.position.x > tutorial_text_end_position_x)
+			if (tutorial_text.localPosition.x > tutorial_text_end_position_x)
 			{
-				if (tutorial_text.position.x > tutorial_close_x_start)
+				if (tutorial_text.localPosition.x > tutorial_close_x_start)
 				{
-					tutorial_text.position += Vector3.left * Time.deltaTime * tutorial_speed;
+					tutorial_text.localPosition += Vector3.left * Time.deltaTime * tutorial_speed;
 				}
-				else if (tutorial_text.position.x > tutorial_close_x_end)
+				else if (tutorial_text.localPosition.x > tutorial_close_x_end)
 				{
-					tutorial_text.position += Vector3.left * Time.deltaTime * tutorial_close_speed;
+					tutorial_text.localPosition += Vector3.left * Time.deltaTime * tutorial_close_speed;
 					Color color = tutorial_text.gameObject.GetComponent <TextMesh> ().color;
 					color.a += Time.deltaTime * color_speed;
 					tutorial_text.gameObject.GetComponent <TextMesh> ().color = color;
 				}
 				else
 				{
-					tutorial_text.position += Vector3.left * Time.deltaTime * tutorial_speed;
+					tutorial_text.localPosition += Vector3.left * Time.deltaTime * tutorial_speed;
 					Color color = tutorial_text.gameObject.GetComponent <TextMesh> ().color;
 					color.a -= Time.deltaTime * color_speed * 3;
 					tutorial_text.gameObject.GetComponent <TextMesh> ().color = color;
@@ -433,5 +460,15 @@ public class GameController : MonoBehaviour {
 	public int GetState ()
 	{
 		return state;
+	}
+
+	public void UseSightline ()
+	{
+		is_using_sightline = true;
+	}
+
+	public void NotUseSightline ()
+	{
+		is_using_sightline = false;
 	}
 }

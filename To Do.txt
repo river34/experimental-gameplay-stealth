@@ -1,5 +1,5 @@
 # To Do
-- playtest
+- more playtest
 - 6 levelcards (4-9)
 - audio track
 
@@ -16,3 +16,10 @@
 - UI title
 - UI tutorial
 - state machine
+- add back the line-of-sight
+- playtest with Xuesong, Sunil
+- change background to make guards more obvious
+
+# Playtest
+- Xuesong: make the sight more narrow. give more control of the rotation.
+- Sunil: tutorial disappear too fast. not clear what to do. guards are not too obvious.

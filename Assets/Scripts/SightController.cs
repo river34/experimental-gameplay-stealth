@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class SightController : MonoBehaviour {
 
-	// private Transform sigh;
-
 	// Use this for initialization
 	void Start ()
 	{
-		// sigh = transform.Find ("Sight");
+		//
 	}
 
 	// Update is called once per frame
@@ -23,10 +21,18 @@ public class SightController : MonoBehaviour {
 		transform.rotation = Quaternion.AngleAxis (angle, Vector3.forward);
 	}
 
-	public void Flip ()
+	public void Flip (bool is_right)
 	{
 		Vector3 scale = gameObject.transform.localScale;
 		scale.x = - scale.x;
+		if (is_right)
+		{
+			scale.x = Mathf.Abs (scale.x);
+		}
+		else
+		{
+			scale.x = -1 * Mathf.Abs (scale.x);
+		}
 		gameObject.transform.localScale = scale;
 	}
 

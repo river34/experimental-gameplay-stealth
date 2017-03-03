@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour {
 	private float min_y;
 	private Vector3 original_position;
 
+	private bool is_using_sightline;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -44,7 +46,7 @@ public class PlayerController : MonoBehaviour {
 		original_color = render.material.GetColor ("_Color");
 		collider = GetComponent <Collider2D> ();
 		original_collider_offset = collider.offset;
-		sight = transform.Find ("Sight");
+        sight = transform.Find ("Sight");
 		original_sight_position = sight.position;
 		speed = 3f;
 		is_in_light = false;
@@ -72,6 +74,8 @@ public class PlayerController : MonoBehaviour {
 		min_x = -6f;
 		min_y = -5f;
 		original_position = transform.position;
+
+		is_using_sightline = false;
 	}
 
 	// Update is called once per frame
@@ -113,6 +117,21 @@ public class PlayerController : MonoBehaviour {
 			particle.startSpeed = 1f;
 			emission.rate = 200f;
 			render.material.SetColor ("_Color", new Color32 (0, 0, 0, 0));
+		}
+
+		if (is_using_sightline)
+		{
+			if (!sight.gameObject.activeSelf)
+			{
+				sight.gameObject.SetActive (true);
+			}
+		}
+		else
+		{
+			if (sight.gameObject.activeSelf)
+			{
+				sight.gameObject.SetActive (false);
+			}
 		}
 	}
 
@@ -238,6 +257,16 @@ public class PlayerController : MonoBehaviour {
 		{
 			animator.SetBool ("IsRunning", true);
 		}
+		/*
+		if (sight.position.x < original_sight_position.x + 0.2f)
+		{
+			sight.position += Vector3.right * Time.deltaTime * 1f;
+		}
+		if (sight.position.y > original_sight_position.y - 0.2f)
+		{
+			sight.position += Vector3.down * Time.deltaTime * 1f;
+		}
+		*/
 	}
 
 	public void Stop ()
@@ -246,6 +275,16 @@ public class PlayerController : MonoBehaviour {
 		{
 			animator.SetBool ("IsRunning", false);
 		}
+		/*
+		if (sight.position.x > original_sight_position.x)
+		{
+			sight.position += Vector3.left * Time.deltaTime * 1f;
+		}
+		if (sight.position.y < original_sight_position.y)
+		{
+			sight.position += Vector3.up * Time.deltaTime * 1f;
+		}
+		*/
 	}
 
 	public void Hide ()
@@ -338,5 +377,15 @@ public class PlayerController : MonoBehaviour {
 		particle.startSpeed = 0.1f;
 		emission.rate = 10f;
 		render.material.SetColor ("_Color", Color.black);
+	}
+
+	public void SetSightline ()
+	{
+		is_using_sightline = true;
+	}
+
+	public void UnsetSightline ()
+	{
+		is_using_sightline = false;
 	}
 }
