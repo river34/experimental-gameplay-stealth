@@ -1,0 +1,150 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class InputController : MonoBehaviour {
+
+	public SightController sight;
+	public PlayerController player;
+	public BackgroundController background;
+	private GameController game;
+
+	private float max_angle;
+	private float min_angle;
+	private bool is_right;
+	private bool is_right_last_frame;
+	private float speed;
+	private bool is_using_mouse;
+
+	// Use this for initialization
+	void Start () {
+		max_angle = 45f;
+		min_angle = 0f;
+		is_right = true;
+		is_right_last_frame = true;
+		speed = 6f;
+		game = gameObject.GetComponent <GameController> ();
+		is_using_mouse = false;
+	}
+
+	// Update is called once per frame
+	void Update ()
+	{
+		if (game.GetState () == States.END)
+		{
+			if (Input.GetKey ("space"))
+			{
+				// move
+				game.Restart ();
+			}
+			return;
+		}
+
+		if (game.GetState () == States.TUTORIAL)
+		{
+			if (Input.GetKey ("space"))
+			{
+				// move
+				game.SkipTutorial ();
+			}
+		}
+
+		if (game.GetState () == States.TITLE || game.GetState () == States.TUTORIAL || game.GetState () == States.GAME)
+		{
+			if (Input.GetKey ("w") || Input.GetKey ("up"))
+			{
+				// move
+				player.GetUp ();
+				player.SetUp ();
+			}
+			else
+			{
+				player.SetDown ();
+			}
+
+			if (Input.GetKey ("a") || Input.GetKey ("left"))
+			{
+				player.SetDown ();
+				// set direction to left
+				is_right = false;
+				// start running animation
+				player.Run ();
+				// move
+				player.GetUp ();
+				player.Move (-1f);
+				background.SetMoving (true, false);
+				// level.SetMoving (true, false);
+			}
+			else if (Input.GetKey ("d") || Input.GetKey ("right"))
+			{
+				player.SetDown ();
+				// set direction to right
+				is_right = true;
+				// start running animation
+				player.Run ();
+				// move
+				player.GetUp ();
+				player.Move (1f);
+				background.SetMoving (true, true);
+				// level.SetMoving (true, true);
+			}
+			else
+			{
+				// stop running animation
+				player.Stop ();
+				background.SetMoving (false, false);
+				// level.SetMoving (false, false);
+
+				if (Input.GetKey ("s") || Input.GetKey ("down"))
+				{
+					player.Hide ();
+				}
+				else
+				{
+					player.GetUp ();
+				}
+			}
+
+			if (is_using_mouse) // Input.GetMouseButton (0) - mouse left button down
+			{
+				if (is_right)
+				{
+					Vector3 position = Camera.main.WorldToScreenPoint (sight.GetPosition ());
+					Vector3 direction = Input.mousePosition - position;
+					float angle = Mathf.Atan2 (direction.y, direction.x) * Mathf.Rad2Deg;
+
+					if (angle > max_angle)
+					{
+						angle = max_angle;
+					}
+					else if (angle < min_angle)
+					{
+						angle = min_angle;
+					}
+
+					sight.Rotate (angle);
+				}
+			}
+		}
+
+		/*
+		if (is_right_last_frame != is_right)
+		{
+			// sight.Flip ();
+			player.Flip (is_right);
+		}
+		*/
+		player.Flip (is_right);
+	}
+
+	void LateUpdate ()
+	{
+		is_right_last_frame = is_right;
+	}
+
+	public void Init ()
+	{
+		is_right = true;
+		is_right_last_frame = true;
+	}
+}

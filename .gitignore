@@ -1,0 +1,18 @@
+02_Stealth.sln
+Assembly-CSharp.csproj
+
+## Mac generated
+*.DS_Store
+
+## Unity generated
+Library/
+Temp/
+ProjectSettings/
+*.meta
+
+## Build
+Build/
+
+## other
+Other/
+

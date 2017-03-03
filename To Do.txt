@@ -1,0 +1,18 @@
+# To Do
+- playtest
+- 6 levelcards (4-9)
+- audio track
+
+# Done
+- 4 levelcards (0-3)
+- guard AI
+- controls
+- landscape (ps)
+- add rewards to level
+- add guards to level
+- check the down speed calculation, is_on_ground
+- level builder (difficulty level)
+- UI score
+- UI title
+- UI tutorial
+- state machine
