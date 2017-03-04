@@ -1,13 +1,13 @@
 # To Do
 - more playtest
-- 6 levelcards (4-9)
+- 4 levelcards (6-9)
 - audio track (sunil)
 - embed the story in gameplay (sunil)
 - when player fails, score drops instead of becoming zero (emre)
 - check point (emre)
 
 # Done
-- 4 levelcards (0-3)
+- 6 levelcards (0-5)
 - guard AI
 - controls
 - landscape (ps)
