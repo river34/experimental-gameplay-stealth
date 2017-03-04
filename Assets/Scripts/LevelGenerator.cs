@@ -192,8 +192,8 @@ public class LevelLibrary {
 	public LevelLibrary ()
 	{
 		levels = new List<Level> ();
-		levels.Add (new Level (0, 0, 0, 4, new int[] {0, 0, 1, 2, 0, 1, 2, 2}));
-		levels.Add (new Level (0, 1, 2, 6, new int[] {0, 1, 2, 0, 1, 1, 2, 2}));
+		levels.Add (new Level (0, 0, 0, 4, new int[] {0, 0, 1, 2, 0}));
+		levels.Add (new Level (0, 1, 4, 6, new int[] {0, 1, 2, 0, 1, 1, 2, 2}));
 		levels.Add (new Level (0, 1, 100, 8, new int[] {1, 2, 3, 2, 1, 2, 3, 2}));
 		levels.Add (new Level (0, 2, 100, 10, new int[] {1, 3, 2, 2, 3, 3, 2, 3, 1}));
 	}

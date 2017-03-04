@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour {
 
 	void UpdateState ()
 	{
-		if (is_in_light_buffer[1] && is_in_light)
+		if (is_in_light_buffer[0] && is_in_light_buffer[1] && is_in_light)
 		{
 			render.material.SetColor ("_Color", original_color);
 			particle.startColor = particle_color_in_light;

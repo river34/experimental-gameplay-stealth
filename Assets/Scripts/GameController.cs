@@ -170,7 +170,7 @@ public class GameController : MonoBehaviour {
 				start_time = Time.time;
 				is_start_time_set = true;
 			}
-			if (is_start && Time.time - start_time > 2f)
+			if (is_start && Time.time - start_time > 1f)
 			{
 				state = States.TUTORIAL;
 			}
@@ -494,8 +494,9 @@ public class GameController : MonoBehaviour {
 	public void RespawnLevel ()
 	{
 		// replace current level card with a new one
+		Destroy (levelcard);
 		levelcard = null;
-		is_respawn = true;
+		// is_respawn = true;
 	}
 
 	public void LightUp ()

@@ -15,9 +15,16 @@
 
   - Engineer: River Liu
   - Artist: River Liu
-  - Playtesters: Xuesong Liang, Sunil Nayak
+  - Playtesters: Xuesong Liang, Sunil Nayak, Abhishek Ambre, Emre Findik
 
 
 #### Fonts:
 
   - [Prince of Persia Regular](http://www.fontspace.com/fereydoun/princeofpersia)
+
+
+### References:
+
+  - Journey (2012)
+  - Mark of the Ninja (2012)
+  - Prince of Persia (1989)

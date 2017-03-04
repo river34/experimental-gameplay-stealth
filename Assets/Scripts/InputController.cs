@@ -41,7 +41,7 @@ public class InputController : MonoBehaviour {
 
 		if (game.GetState () == States.TITLE)
 		{
-			if (Input.GetKey ("space"))
+			if (Input.anyKey)
 			{
 				// move
 				game.StartGame ();
@@ -51,7 +51,7 @@ public class InputController : MonoBehaviour {
 
 		if (game.GetState () == States.END)
 		{
-			if (Input.anyKey)
+			if (Input.GetKey ("space"))
 			{
 				// move
 				game.Restart ();
