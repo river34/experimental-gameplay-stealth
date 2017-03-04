@@ -289,13 +289,13 @@ public class GameController : MonoBehaviour {
 			position.x = levelcard_start_x;
 			position.y = 0;
 			position.z = -2f;
-			levelcard_id = generator.GetLevelIdByDifficultyLevel (difficulty_level);
-			levelcard_end_x = levelcard_start_x + generator.GetWidth (levelcard_id);
-			levelcard = Instantiate (levelcards[levelcard_id], position, levels_transform.rotation, levels_transform);
 
 			// generate guards
 			if (!is_respawn)
 			{
+				levelcard_id = generator.GetLevelIdByDifficultyLevel (difficulty_level);
+				levelcard_end_x = levelcard_start_x + generator.GetWidth (levelcard_id);
+				levelcard = Instantiate (levelcards[levelcard_id], position, levels_transform.rotation, levels_transform);
 				int num_of_guards = 0;
 				float guard_range = generator.GetWidth (levelcard_id) / generator.GetNumOfGuards (levelcard_id);
 				while (num_of_guards < generator.GetNumOfGuards (levelcard_id))
@@ -312,6 +312,7 @@ public class GameController : MonoBehaviour {
 			}
 			else
 			{
+				levelcard = Instantiate (levelcards[levelcard_id], position, levels_transform.rotation, levels_transform);
 				is_respawn = false;
 			}
 		}
@@ -492,7 +493,7 @@ public class GameController : MonoBehaviour {
 		// replace current level card with a new one
 		Destroy (levelcard);
 		levelcard = null;
-		// is_respawn = true;
+		is_respawn = true;
 	}
 
 	public void LightUp ()
