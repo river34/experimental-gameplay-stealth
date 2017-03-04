@@ -2,9 +2,7 @@
 - more playtest
 - 6 levelcards (4-9)
 - audio track (sunil)
-- shorten the introduction part (sunil)
 - embed the story in gameplay (sunil)
-- move Sin
 - when player fails, score drops instead of becoming zero (emre)
 - check point (emre)
 
@@ -28,6 +26,8 @@
 - fix jump-run asyn problem
 - fix the rotation of guards' sight
 - more feedback after getting points - light up the scene for a limited time (1s)
+- shorten the introduction part (sunil)
+- move Sin to fix the rotation of sight
 
 # Playtest
 - 3.3 Xuesong: make the sight more narrow. give more control of the rotation.
@@ -35,4 +35,4 @@
 - 3.4 Abhishek: add jump while running. everytime you get a light, scene turns bright for limited time and then fade into dark. respawn light. player dies without seeing a guard coming.
 # Playtest after the first iteration
 - 3.4 Emre: score becomes zero after character being seen, feel frustrated.
-- 3.4 Sunil: introduction part is too long. develop the story inside of the game, give clues with writing on walls which can only be seen when they look around with the mouse. 
+- 3.4 Sunil: introduction part is too long. develop the story inside of the game, give clues with writing on walls which can only be seen when they look around with the mouse.

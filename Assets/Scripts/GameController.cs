@@ -404,22 +404,18 @@ public class GameController : MonoBehaviour {
 	{
 		if (is_using_sightline)
 		{
-			tutorial_strings = new string[6];
-			tutorial_strings[0] = "once upon a time, there lives a light stealer";
-			tutorial_strings[1] = "who steals light from the palace of darkness";
-			tutorial_strings[2] = "and brings it back to the world";
-			tutorial_strings[3] = "use wasd or arrows to control the movement";
-			tutorial_strings[4] = "use mouse to countrol the line of sight";
-			tutorial_strings[5] = "hide in shadows to avoid being seen";
+			tutorial_strings = new string[4];
+			tutorial_strings[0] = "this is a story about the light stealer";
+			tutorial_strings[1] = "who steals light but remains in shadow";
+			tutorial_strings[2] = "use wasd or arrows to move";
+			tutorial_strings[3] = "use mouse to look around";
 		}
 		else
 		{
-			tutorial_strings = new string[5];
-			tutorial_strings[0] = "once upon a time, there lives a light stealer";
-			tutorial_strings[1] = "who steals light from the palace of darkness";
-			tutorial_strings[2] = "and brings it back to the world";
-			tutorial_strings[3] = "use wasd or arrows to control the movement";
-			tutorial_strings[4] = "hide in shadows to avoid being seen";
+			tutorial_strings = new string[3];
+			tutorial_strings[0] = "this is a story about the light stealer";
+			tutorial_strings[1] = "who steals light but remains in shadow";
+			tutorial_strings[2] = "use wasd or arrows to move";
 		}
 
 		foreach (string tutorial_string in tutorial_strings)

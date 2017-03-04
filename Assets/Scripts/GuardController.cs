@@ -124,7 +124,7 @@ public class GuardController : MonoBehaviour {
 
 			if (is_looking)
 			{
-				float angle = original_sight_rotation.z + Mathf.Sin ((Time.time - start_time) * movement_speed) * -90f;
+				float angle = original_sight_rotation.z + Mathf.Sin ((Time.time - start_time - Mathf.PI/4) * movement_speed) * -90f;
 				if (!is_right)
 				{
 					angle = -angle;
