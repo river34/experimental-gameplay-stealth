@@ -39,9 +39,19 @@ public class InputController : MonoBehaviour {
 			game.UseSightline ();
 		}
 
-		if (game.GetState () == States.END)
+		if (game.GetState () == States.TITLE)
 		{
 			if (Input.GetKey ("space"))
+			{
+				// move
+				game.StartGame ();
+			}
+			return;
+		}
+
+		if (game.GetState () == States.END)
+		{
+			if (Input.anyKey)
 			{
 				// move
 				game.Restart ();
@@ -58,7 +68,7 @@ public class InputController : MonoBehaviour {
 			}
 		}
 
-		if (game.GetState () == States.TITLE || game.GetState () == States.TUTORIAL || game.GetState () == States.GAME)
+		if (game.GetState () == States.TUTORIAL || game.GetState () == States.GAME)
 		{
 			if (Input.GetKey ("w") || Input.GetKey ("up"))
 			{

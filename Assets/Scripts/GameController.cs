@@ -36,6 +36,8 @@ public class GameController : MonoBehaviour {
 	private InputController input;
 	private float start_time;
 	public bool is_using_sightline;
+	private bool is_start;
+	private bool is_start_time_set;
 
 	// levels
 	public List <GameObject> levelcards;
@@ -98,6 +100,8 @@ public class GameController : MonoBehaviour {
 		input = gameObject.GetComponent <InputController> ();
 		start_time = Time.time;
 		is_using_sightline = true;
+		is_start = false;
+		is_start_time_set = false;
 
 		// levels
 		levelcards = generator.GenerateLevecards ();
@@ -161,7 +165,12 @@ public class GameController : MonoBehaviour {
 			HideEnd ();
 			// UpdateLevel ();
 			// go to next stage
-			if (Time.time - start_time > 4f)
+			if (is_start && !is_start_time_set)
+			{
+				start_time = Time.time;
+				is_start_time_set = true;
+			}
+			if (is_start && Time.time - start_time > 2f)
 			{
 				state = States.TUTORIAL;
 			}
@@ -492,5 +501,10 @@ public class GameController : MonoBehaviour {
 	public void LightUp ()
 	{
 		player.LightUp ();
+	}
+
+	public void StartGame ()
+	{
+		is_start = true;
 	}
 }
