@@ -25,17 +25,27 @@ public class PlayerController : MonoBehaviour {
 
 	// movement
 	public bool is_up;
+	private bool is_up_last_frame;
 	public bool is_in_sky;
 	public bool is_on_ground;
 	private float gravity;
-	private float up_speed;
-	private float down_speed;
+	public float up_speed;
+	public float down_speed;
 	private float max_up_speed;
 	private float min_x;
 	private float min_y;
 	private Vector3 original_position;
+	private float up_time;
+	private float up_time_limit;
+	private float position_y_last_frame;
+	public bool is_going_down;
 
 	private bool is_using_sightline;
+	private float sightline_disable_time_start;
+	private float sightline_disable_time_limit_base;
+	private float sightline_disable_time_limit;
+	private bool is_sightline_disabled;
+	private bool is_sightline_disabled_last_frame;
 
 	// Use this for initialization
 	void Start ()
@@ -65,6 +75,7 @@ public class PlayerController : MonoBehaviour {
 
 		// movement
 		is_up = false;
+		is_up_last_frame = false;
 		is_in_sky = false;
 		is_on_ground = true;
 		gravity = 16f;
@@ -74,31 +85,60 @@ public class PlayerController : MonoBehaviour {
 		min_x = -6f;
 		min_y = -5f;
 		original_position = transform.position;
+		up_time = Time.time;
+		up_time_limit = 0.5f;
+		position_y_last_frame = transform.position.y;
+		is_going_down = false;
 
+		// sightline
 		is_using_sightline = false;
+		sightline_disable_time_start = Time.time;
+		sightline_disable_time_limit_base = 1f;
+		sightline_disable_time_limit = 0;
+		is_sightline_disabled = false;
 	}
 
 	// Update is called once per frame
 	void Update ()
 	{
-		UpdateMovement ();
 		UpdateState ();
+		UpdateMovement ();
 	}
 
 	void LateUpdate ()
 	{
 		is_in_light_buffer.Add (is_in_light);
 		is_in_light_buffer.Remove (is_in_light_buffer[0]);
+		is_up_last_frame = is_up;
+		position_y_last_frame = transform.position.y;
+		is_sightline_disabled_last_frame = is_sightline_disabled;
+		if (sightline_disable_time_limit > 0)
+		{
+			sightline_disable_time_limit -= Time.deltaTime;
+		}
+		if (sightline_disable_time_limit < 0)
+		{
+			sightline_disable_time_limit = 0;
+		}
 	}
 
 	public void Move (float x)
 	{
 		transform.position += Vector3.right * x * Time.deltaTime * speed;
+
+		if (transform.position.x < min_x)
+		{
+			transform.position = new Vector3 (min_x, transform.position.y, transform.position.z);
+		}
+		if (transform.position.y < min_y)
+		{
+			transform.position = new Vector3 (transform.position.x, min_y, transform.position.z);
+		}
 	}
 
 	void UpdateState ()
 	{
-		if (is_in_light_buffer[0] && is_in_light_buffer[1] && is_in_light)
+		if (is_in_light_buffer[1] && is_in_light)
 		{
 			render.material.SetColor ("_Color", original_color);
 			particle.startColor = particle_color_in_light;
@@ -121,9 +161,27 @@ public class PlayerController : MonoBehaviour {
 
 		if (is_using_sightline)
 		{
-			if (!sight.gameObject.activeSelf)
+			if (is_sightline_disabled)
 			{
-				sight.gameObject.SetActive (true);
+				if (!is_sightline_disabled_last_frame)
+				{
+					sightline_disable_time_start = Time.time;
+					if (sight.gameObject.activeSelf)
+					{
+						sight.gameObject.SetActive (false);
+					}
+				}
+				if (!sight.gameObject.activeSelf && Time.time - sightline_disable_time_start >= sightline_disable_time_limit)
+				{
+					is_sightline_disabled = false;
+				}
+			}
+			else
+			{
+				if (!sight.gameObject.activeSelf)
+				{
+					sight.gameObject.SetActive (true);
+				}
 			}
 		}
 		else
@@ -132,6 +190,21 @@ public class PlayerController : MonoBehaviour {
 			{
 				sight.gameObject.SetActive (false);
 			}
+		}
+
+		if (transform.position.y - position_y_last_frame < 0 || is_in_sky)
+		{
+			is_going_down = true;
+		}
+
+		if (is_on_ground)
+		{
+			is_going_down = false;
+		}
+
+		if (is_going_down)
+		{
+			is_up = false;
 		}
 	}
 
@@ -152,19 +225,16 @@ public class PlayerController : MonoBehaviour {
 			transform.position += Vector3.down * Time.deltaTime * down_speed;
 		}
 
-		if (is_on_ground || is_in_sky)
+		if (is_on_ground)
 		{
 			down_speed = 0;
 			up_speed = max_up_speed;
 		}
 
-		if (transform.position.x < min_x - 0.5f)
+		if (is_in_sky)
 		{
-			transform.position = new Vector3 (min_x, transform.position.y, transform.position.z);
-		}
-		if (transform.position.y < min_y - 0.5f)
-		{
-			transform.position = new Vector3 (transform.position.x, min_y, transform.position.z);
+			down_speed = 0;
+			up_speed = 0;
 		}
 	}
 
@@ -177,7 +247,7 @@ public class PlayerController : MonoBehaviour {
 
 	public bool GetInLight ()
 	{
-		return is_in_light;
+		return is_in_light_buffer[1] && is_in_light;
 	}
 
 	void OnTriggerEnter2D (Collider2D other)
@@ -194,11 +264,13 @@ public class PlayerController : MonoBehaviour {
 		{
 			game.AddScore (Tags.OBJECTIVE_SMALL);
 			Destroy (other.gameObject);
+			game.LightUp ();
 		}
 		if (other.gameObject.CompareTag (Tags.OBJECTIVE))
 		{
 			game.AddScore (Tags.OBJECTIVE);
 			Destroy (other.gameObject);
+			game.LightUp ();
 		}
 		if (other.gameObject.name == "Ground")
 		{
@@ -305,7 +377,7 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	public void GetUp ()
+	public void Stand ()
 	{
 		if (animator.GetBool ("IsHiding"))
 		{
@@ -340,7 +412,15 @@ public class PlayerController : MonoBehaviour {
 
 	public void SetUp ()
 	{
-		is_up = true;
+		if (!is_going_down)
+		{
+			is_up = true;
+		}
+		if (is_going_down)
+		{
+			is_up = false;
+		}
+		// is_up = true;
 	}
 
 	public void SetDown ()
@@ -387,5 +467,12 @@ public class PlayerController : MonoBehaviour {
 	public void UnsetSightline ()
 	{
 		is_using_sightline = false;
+	}
+
+	public void LightUp ()
+	{
+		// sightline
+		is_sightline_disabled = true;
+		sightline_disable_time_limit += sightline_disable_time_limit_base;
 	}
 }

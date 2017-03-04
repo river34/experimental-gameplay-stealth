@@ -62,8 +62,7 @@ public class InputController : MonoBehaviour {
 		{
 			if (Input.GetKey ("w") || Input.GetKey ("up"))
 			{
-				// move
-				player.GetUp ();
+				player.Stand ();
 				player.SetUp ();
 			}
 			else
@@ -73,26 +72,26 @@ public class InputController : MonoBehaviour {
 
 			if (Input.GetKey ("a") || Input.GetKey ("left"))
 			{
-				player.SetDown ();
+				// player.SetDown ();
 				// set direction to left
 				is_right = false;
 				// start running animation
 				player.Run ();
 				// move
-				player.GetUp ();
+				player.Stand ();
 				player.Move (-1f);
 				background.SetMoving (true, false);
 				// level.SetMoving (true, false);
 			}
 			else if (Input.GetKey ("d") || Input.GetKey ("right"))
 			{
-				player.SetDown ();
+				// player.SetDown ();
 				// set direction to right
 				is_right = true;
 				// start running animation
 				player.Run ();
 				// move
-				player.GetUp ();
+				player.Stand ();
 				player.Move (1f);
 				background.SetMoving (true, true);
 				// level.SetMoving (true, true);
@@ -110,7 +109,7 @@ public class InputController : MonoBehaviour {
 				}
 				else
 				{
-					player.GetUp ();
+					player.Stand ();
 				}
 			}
 

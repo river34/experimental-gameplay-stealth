@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour {
 	private float levelcard_start_x;
 	private float levelcard_end_x;
 	private int levelcard_id;
+	private bool is_respawn;
 
 	// UI
 	public GameObject UI_title;
@@ -104,6 +105,7 @@ public class GameController : MonoBehaviour {
 		levelcard_end_x = 12f;
 		levelcard_id = -1;
 		levelcard = null;
+		is_respawn = false;
 
 		// guards
 		guards_transform = transform.Find ("Guards");
@@ -283,18 +285,25 @@ public class GameController : MonoBehaviour {
 			levelcard = Instantiate (levelcards[levelcard_id], position, levels_transform.rotation, levels_transform);
 
 			// generate guards
-			int num_of_guards = 0;
-			float guard_range = generator.GetWidth (levelcard_id) / generator.GetNumOfGuards (levelcard_id);
-			while (num_of_guards < generator.GetNumOfGuards (levelcard_id))
+			if (!is_respawn)
 			{
-				GameObject new_guard = Instantiate (guard, levelcard.transform);
-				new_guard.transform.parent = guards_transform;
-				position = new_guard.transform.position;
-				position.x = levelcard_start_x + guard_range * num_of_guards;
-				position.y = -2.5f;
-				new_guard.transform.position = position;
-				new_guard.GetComponent <GuardController> ().SetMovementRange (guard_range / 2);
-				num_of_guards ++;
+				int num_of_guards = 0;
+				float guard_range = generator.GetWidth (levelcard_id) / generator.GetNumOfGuards (levelcard_id);
+				while (num_of_guards < generator.GetNumOfGuards (levelcard_id))
+				{
+					GameObject new_guard = Instantiate (guard, levelcard.transform);
+					new_guard.transform.parent = guards_transform;
+					position = new_guard.transform.position;
+					position.x = levelcard_start_x + guard_range * num_of_guards;
+					position.y = -2.5f;
+					new_guard.transform.position = position;
+					new_guard.GetComponent <GuardController> ().SetMovementRange (guard_range / 2);
+					num_of_guards ++;
+				}
+			}
+			else
+			{
+				is_respawn = false;
 			}
 		}
 		else
@@ -314,6 +323,7 @@ public class GameController : MonoBehaviour {
 		score = 0;
 		input.Init ();
 		player.Init ();
+		RespawnLevel ();
 		state = States.GAME;
 	}
 
@@ -470,5 +480,17 @@ public class GameController : MonoBehaviour {
 	public void NotUseSightline ()
 	{
 		is_using_sightline = false;
+	}
+
+	public void RespawnLevel ()
+	{
+		// replace current level card with a new one
+		levelcard = null;
+		is_respawn = true;
+	}
+
+	public void LightUp ()
+	{
+		player.LightUp ();
 	}
 }

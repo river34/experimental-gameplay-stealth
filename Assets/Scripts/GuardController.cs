@@ -27,6 +27,7 @@ public class GuardController : MonoBehaviour {
 	public float movement_speed;
 	public float movement_range;
 	private float destroy_delay;
+	private float start_time;
 
 	// Use this for initialization
 	void Start () {
@@ -35,14 +36,14 @@ public class GuardController : MonoBehaviour {
 		original_color = render.color;
 		is_player_in_sight = false;
 		is_in_sight = false;
-		visiable_range = 8f;
+		visiable_range = 7f;
 		game = GameObject.Find ("Root").GetComponent <GameController> ();
 		sight = transform.Find ("Sight").gameObject.GetComponent <SightController> ();
 		original_sight_rotation = transform.Find ("Sight").rotation.eulerAngles;
 		speed = Random.Range (10f, 12f);
 		original_x = transform.position.x;
 		is_walking = true;
-		is_looking = false;
+		is_looking = true;
 		is_right = true;
 		is_right_last_frame = true;
 		x_this_frame = original_x;
@@ -50,6 +51,7 @@ public class GuardController : MonoBehaviour {
 		movement_speed = Random.Range (0.15f, 0.25f);
 		movement_range = Random.Range (10f, 15f);
 		destroy_delay = 2f;
+		start_time = Time.time;
 	}
 
 	// Update is called once per frame
@@ -66,7 +68,7 @@ public class GuardController : MonoBehaviour {
 		{
 			// rush to the player, kill the player, end the game
 			Stop ();
-			Fly ();
+			// Fly ();
 
 			if (x_this_frame > x_last_frame)
 			{
@@ -84,7 +86,7 @@ public class GuardController : MonoBehaviour {
 
 			if (player != null)
 			{
-        		transform.position = Vector3.MoveTowards (transform.position, player.position, speed * Time.deltaTime);
+        		// transform.position = Vector3.MoveTowards (transform.position, player.position, speed * Time.deltaTime);
 			}
 		}
 		else if (is_distractor_in_range) // if sense a distractor
@@ -98,7 +100,7 @@ public class GuardController : MonoBehaviour {
 			{
 				// start walking animation
 				Walk ();
-				x_this_frame = original_x + Mathf.Sin (Time.time * movement_speed) * movement_range;
+				x_this_frame = original_x + Mathf.Sin ((Time.time - start_time) * movement_speed) * movement_range;
 				transform.position = new Vector3 (x_this_frame, transform.position.y, transform.position.z);
 				if (x_this_frame > x_last_frame)
 				{
@@ -122,8 +124,8 @@ public class GuardController : MonoBehaviour {
 
 			if (is_looking)
 			{
-				float angle = original_sight_rotation.z + Mathf.Sin (Time.time) * 5f;
-				if (is_right != is_right_last_frame)
+				float angle = original_sight_rotation.z + Mathf.Sin ((Time.time - start_time) * movement_speed) * -90f;
+				if (!is_right)
 				{
 					angle = -angle;
 				}

@@ -42,8 +42,13 @@ public class BackgroundController : MonoBehaviour {
 				int index = 0;
 				foreach (Transform background in backgrounds)
 				{
+					if (background.childCount <= 0)
+					{
+						continue;
+					}
 					Vector3 speed = Vector3.left * Time.deltaTime * (start_speed + base_speed * (backgrounds.Count - index) * (backgrounds.Count - index));
 					background.GetChild(0).position += speed;
+
 					if (background.childCount > 1)
 					{
 						background.GetChild(1).position += speed;
@@ -77,10 +82,14 @@ public class BackgroundController : MonoBehaviour {
 				{
 					return;
 				}
-				
+
 				int index = 0;
 				foreach (Transform background in backgrounds)
 				{
+					if (background.childCount <= 0)
+					{
+						continue;
+					}
 					Vector3 speed = Vector3.right * Time.deltaTime * (start_speed + base_speed * (backgrounds.Count - index) * (backgrounds.Count - index));
 					background.GetChild(0).position += speed;
 					if (background.childCount > 1)

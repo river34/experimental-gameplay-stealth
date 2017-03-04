@@ -17,8 +17,12 @@
 - UI tutorial
 - state machine
 - add back the line-of-sight
-- playtest with Xuesong, Sunil
+- playtest with Xuesong, Sunil, Abhishek
 - change background to make guards more obvious
+- fix never-fall problem
+- fix jump-run asyn problem
+- fix the rotation of guards' sight
+- more feedback after getting points - light up the scene for a limited time (1s)
 
 # Playtest
 - Xuesong: make the sight more narrow. give more control of the rotation.
