@@ -1,13 +1,13 @@
 # Light Stealer
 
 
-### Play now from my website: [WebGL](https://river34.github.io/experimental-gameplay-stealth/swebgl/index.html)
+### Play now from my website: [WebGL](http://riverliu.net/game/light-stealer-2017-03/)
 
 
 ### How to play
 
-  - Use WASD or Arrows to control the movement
-  - Use mouse to control the sight
+  - Use WASD or Arrows to move
+  - Use mouse to look around
   - Try to collect the lights without being seen by the guards
 
 
@@ -15,7 +15,7 @@
 
   - Engineer: River Liu
   - Artist: River Liu
-  - Playtesters: Xuesong Liang, Sunil Nayak, Abhishek Ambre, Emre Findik
+  - Playtesters: Xuesong Liang, Sunil Nayak, Abhishek Ambre, Emre Findik, Colin Andrew Grant
 
 
 #### Fonts:
