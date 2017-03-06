@@ -1,7 +1,7 @@
 # Light Stealer
 
 
-<img src="/Assets/Screenshots/Screen Shot 0.png">
+<img src="/Assets/Screenshots/Screen Shot 1.png">
 
 
 ### Play now from my website: [WebGL](http://riverliu.net/game/light-stealer-2017-03/)
@@ -26,7 +26,7 @@
   - [Prince of Persia Regular](http://www.fontspace.com/fereydoun/princeofpersia)
 
 
-### References:
+#### References:
 
   - Journey (2012)
   - Mark of the Ninja (2012)
