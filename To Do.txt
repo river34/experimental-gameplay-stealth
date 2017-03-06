@@ -31,6 +31,7 @@
 - after death, apply a punish score instead of resetting score. reset difficulty level
 - fix detection problem
 - add more levelcards (0-9)
+- possible fix for the floating-in-the-air problem reported by Chirag
 
 # Playtest
 - 3.3 Xuesong: make the sight more narrow. give more control of the rotation.
@@ -39,3 +40,4 @@
 # Playtest after the first iteration
 - 3.4 Emre: score becomes zero after character being seen, feel frustrated.
 - 3.4 Sunil: introduction part is too long. develop the story inside of the game, give clues with writing on walls which can only be seen when they look around with the mouse.
+- 3.5 Chirag: (stress test) click up three times slowly before he reaches the top and he remains in air floating while be able to move forward and back

@@ -18,7 +18,7 @@
 
   - Engineer: River Liu
   - Artist: River Liu
-  - Playtesters: Xuesong Liang, Sunil Nayak, Abhishek Ambre, Emre Findik, Colin Andrew Grant
+  - Playtesters: Xuesong Liang, Sunil Nayak, Abhishek Ambre, Emre Findik, Colin Andrew Grant, Chirag Salian
 
 
 #### Fonts:

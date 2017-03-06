@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour {
 		down_speed = 0f;
 		max_up_speed = 8f;
 		min_x = -6f;
-		min_y = -5f;
+		min_y = -3f;
 		original_position = transform.position;
 		up_time = Time.time;
 		up_time_limit = 0.5f;
@@ -195,6 +195,15 @@ public class PlayerController : MonoBehaviour {
 		if (transform.position.y - position_y_last_frame < 0 || is_in_sky)
 		{
 			is_going_down = true;
+		}
+
+		if (transform.position.y <= min_y)
+		{
+			is_on_ground = true;
+		}
+		else
+		{
+			is_on_ground = false;
 		}
 
 		if (is_on_ground)

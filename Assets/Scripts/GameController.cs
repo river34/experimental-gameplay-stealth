@@ -90,7 +90,7 @@ public class GameController : MonoBehaviour {
 		objective_score = 10;
 		objective_small_score = 1;
 		score = 0;
-		punish_score = 50;
+		punish_score = 20;
 
 		// mask
 		objective_small_color = new Color32 (255, 255, 255, 0);
