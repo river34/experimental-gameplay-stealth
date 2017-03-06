@@ -20,7 +20,8 @@ public class GameController : MonoBehaviour {
 	// score
 	private int objective_score;
 	private int objective_small_score;
-	public int score;
+	private int score;
+	private int punish_score;
 
 	// mask
 	public SpriteRenderer mask;
@@ -38,6 +39,7 @@ public class GameController : MonoBehaviour {
 	public bool is_using_sightline;
 	private bool is_start;
 	private bool is_start_time_set;
+	private float player_revive_position_x;
 
 	// levels
 	public List <GameObject> levelcards;
@@ -48,6 +50,7 @@ public class GameController : MonoBehaviour {
 	private float levelcard_end_x;
 	private int levelcard_id;
 	private bool is_respawn;
+	private float player_level_offset_x;
 
 	// UI
 	public GameObject UI_title;
@@ -87,6 +90,7 @@ public class GameController : MonoBehaviour {
 		objective_score = 10;
 		objective_small_score = 1;
 		score = 0;
+		punish_score = 50;
 
 		// mask
 		objective_small_color = new Color32 (255, 255, 255, 0);
@@ -102,6 +106,7 @@ public class GameController : MonoBehaviour {
 		is_using_sightline = true;
 		is_start = false;
 		is_start_time_set = false;
+		player_revive_position_x = player_transform.position.x;
 
 		// levels
 		levelcards = generator.GenerateLevecards ();
@@ -110,6 +115,7 @@ public class GameController : MonoBehaviour {
 		levelcard_id = -1;
 		levelcard = null;
 		is_respawn = false;
+		player_level_offset_x = player.GetMinX () - levelcard_start_x;
 
 		// guards
 		guards_transform = transform.Find ("Guards");
@@ -231,8 +237,12 @@ public class GameController : MonoBehaviour {
 			}
 		}
 		*/
-		player.SetDie ();
-		End ();
+		if (state == States.GAME)
+		{
+			player.SetDie ();
+			SetPlayerRevivePositionX ();
+			End ();
+		}
 	}
 
 	public void AddScore (string tag)
@@ -330,9 +340,17 @@ public class GameController : MonoBehaviour {
 
 	public void Restart ()
 	{
-		score = 0;
+		score = Mathf.Max (0, score - punish_score);
+		difficulty_level = 0;
+
 		input.Init ();
 		player.Init ();
+
+		foreach (Transform guard_transform in guards_transform)
+		{
+			guard_transform.GetComponent <GuardController> (). Init ();
+		}
+
 		RespawnLevel ();
 		state = States.GAME;
 	}
@@ -504,5 +522,20 @@ public class GameController : MonoBehaviour {
 	public void StartGame ()
 	{
 		is_start = true;
+	}
+
+	public void SetPlayerRevivePositionX ()
+	{
+		player_revive_position_x = levelcard_start_x + player_level_offset_x;
+	}
+
+	public float GetPlayerRevivePositionX ()
+	{
+		return player_revive_position_x;
+	}
+
+	public float GeMinX ()
+	{
+		return levelcard_start_x + player_level_offset_x;
 	}
 }

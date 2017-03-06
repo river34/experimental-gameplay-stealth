@@ -1,9 +1,7 @@
 # To Do
 - more playtest
-- 4 levelcards (6-9)
 - audio track (sunil)
 - embed the story in gameplay (sunil)
-- when player fails, score drops instead of becoming zero (emre)
 - check point (emre)
 
 # Done
@@ -28,6 +26,11 @@
 - more feedback after getting points - light up the scene for a limited time (1s)
 - shorten the introduction part (sunil)
 - move Sin to fix the rotation of sight
+- revive character from the last level start point
+- modify charater and animation
+- after death, apply a punish score instead of resetting score. reset difficulty level
+- fix detection problem
+- add more levelcards (0-9)
 
 # Playtest
 - 3.3 Xuesong: make the sight more narrow. give more control of the rotation.

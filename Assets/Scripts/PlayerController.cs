@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour {
 
 	void UpdateState ()
 	{
-		if (is_in_light_buffer[0] && is_in_light_buffer[1] && is_in_light)
+		if (GetInLight ())
 		{
 			render.material.SetColor ("_Color", original_color);
 			particle.startColor = particle_color_in_light;
@@ -247,7 +247,7 @@ public class PlayerController : MonoBehaviour {
 
 	public bool GetInLight ()
 	{
-		return is_in_light_buffer[1] && is_in_light;
+		return is_in_light_buffer[0] && is_in_light_buffer[1] && is_in_light;
 	}
 
 	void OnTriggerEnter2D (Collider2D other)
@@ -449,7 +449,7 @@ public class PlayerController : MonoBehaviour {
 		gravity = 16f;
 		up_speed = 0f;
 		down_speed = 0f;
-		transform.position = original_position;
+		transform.position = new Vector3 (game.GetPlayerRevivePositionX(), original_position.y, original_position.z);
 
 		particle.startColor = Color.white;
 		// particle.startSize = 3f;
@@ -474,5 +474,10 @@ public class PlayerController : MonoBehaviour {
 		// sightline
 		is_sightline_disabled = true;
 		sightline_disable_time_limit += sightline_disable_time_limit_base;
+	}
+
+	public float GetMinX ()
+	{
+		return min_x;
 	}
 }

@@ -36,7 +36,7 @@ public class GuardController : MonoBehaviour {
 		original_color = render.color;
 		is_player_in_sight = false;
 		is_in_sight = false;
-		visiable_range = 7f;
+		visiable_range = 8f;
 		game = GameObject.Find ("Root").GetComponent <GameController> ();
 		sight = transform.Find ("Sight").gameObject.GetComponent <SightController> ();
 		original_sight_rotation = transform.Find ("Sight").rotation.eulerAngles;
@@ -144,9 +144,15 @@ public class GuardController : MonoBehaviour {
 	{
 		is_player_in_sight = true;
 		player = _player;
-		sight.Hide ();
-		gameObject.GetComponent <Collider2D> ().enabled = false;
-		Destroy (gameObject, destroy_delay);
+		// sight.Hide ();
+		// gameObject.GetComponent <Collider2D> ().enabled = false;
+		// Destroy (gameObject, destroy_delay);
+	}
+
+	public void UnsetPlayerInSight ()
+	{
+		is_player_in_sight = false;
+		player = null;
 	}
 
 	public float GetSightRange ()
@@ -208,5 +214,10 @@ public class GuardController : MonoBehaviour {
 	public void SetMovementRange (float _movement_range)
 	{
 		movement_range = _movement_range;
+	}
+
+	public void Init ()
+	{
+		UnsetPlayerInSight ();
 	}
 }

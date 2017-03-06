@@ -1,6 +1,9 @@
 # Light Stealer
 
 
+<img src="/Assets/Screenshots/Screen Shot 0.png">
+
+
 ### Play now from my website: [WebGL](http://riverliu.net/game/light-stealer-2017-03/)
 
 

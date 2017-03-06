@@ -12,7 +12,6 @@ public class SightTriggerController : MonoBehaviour {
 	public Transform player_in_range;
 	public List <Transform> guard_in_range;
 	private GameController game;
-	private bool is_notified;
 
 	// Use this for initialization
 	void Start ()
@@ -33,8 +32,6 @@ public class SightTriggerController : MonoBehaviour {
 		sight = transform.parent;
 
 		guard_in_range = new List <Transform> ();
-
-		is_notified = false;
 	}
 
 	// Update is called once per frame
@@ -42,16 +39,15 @@ public class SightTriggerController : MonoBehaviour {
 	{
 		if (is_guard && player_in_range != null)
 		{
+			// print (Time.time + " player_in_range");
 			if (player_in_range.gameObject.GetComponent <PlayerController> ().GetInLight ()) // is player in light
 			{
+				// print (Time.time + " player_in_light");
 				if (Vector3.Distance (player_in_range.position, transform.position) <= guard.GetSightRange ()) // is player in sight range
 				{
-					if (!is_notified) // notify game controller
-					{
-						game.PlayerIsDiscoveredByGuard (player_in_range);
-						guard.SetPlayerInSight (player_in_range);
-						is_notified = true;
-					}
+					// print (Time.time + " player_in_sight");
+					game.PlayerIsDiscoveredByGuard (player_in_range);
+					guard.SetPlayerInSight (player_in_range);
 				}
 			}
 			// else: is player in dark, nothing happens
@@ -69,6 +65,14 @@ public class SightTriggerController : MonoBehaviour {
 		{
 			guard_in_range.Add (other.transform);
 			other.gameObject.GetComponent <GuardController> ().SetInSight (true);
+		}
+	}
+
+	void OnTriggerStay2D (Collider2D other)
+	{
+		if (is_guard && other.tag == Tags.PLAYER)
+		{
+			player_in_range = other.transform;
 		}
 	}
 
