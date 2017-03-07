@@ -1,8 +1,9 @@
 # To Do
 - more playtest
 - audio track (sunil)
-- embed the story in gameplay (sunil)
-- check point (emre)
+- embed the story in gameplay. add words on wall
+- restrict the use of mouse/keys for the introduction so that player will not miss the tutorial
+- use "space" to jump
 
 # Done
 - 6 levelcards (0-5)
@@ -25,19 +26,27 @@
 - fix the rotation of guards' sight
 - more feedback after getting points - light up the scene for a limited time (1s)
 - shorten the introduction part (sunil)
+- playtest with Emre, Abhishek
 - move Sin to fix the rotation of sight
 - revive character from the last level start point
 - modify charater and animation
 - after death, apply a punish score instead of resetting score. reset difficulty level
 - fix detection problem
 - add more levelcards (0-9)
+- playtest with Xuesong, Sunil, Chirag
 - possible fix for the floating-in-the-air problem reported by Chirag
+- playtest with Maya, Jenet, Erin, Sharan
 
 # Playtest
 - 3.3 Xuesong: make the sight more narrow. give more control of the rotation.
 - 3.3 Sunil: tutorial disappear too fast. not clear what to do. guards are not obvious.
 - 3.4 Abhishek: add jump while running. everytime you get a light, scene turns bright for limited time and then fade into dark. respawn light. player dies without seeing a guard coming.
 # Playtest after the first iteration
-- 3.4 Emre: score becomes zero after character being seen, feel frustrated.
+- 3.4 Xuesong: movement is more smooth. need more reward. use "space" to jump/steal light.
+- 3.4 Emre: score becomes zero after character being seen, feel frustrated. Maybe and check point to save the progress?
 - 3.4 Sunil: introduction part is too long. develop the story inside of the game, give clues with writing on walls which can only be seen when they look around with the mouse.
-- 3.5 Chirag: (stress test) click up three times slowly before he reaches the top and he remains in air floating while be able to move forward and back
+- 3.5 Chirag: (stress test) click up three times slowly before he reaches the top and he remains in air floating while be able to move forward and back. highest score so far - 65.
+- 3.6 Maya: like your sense of style, very neat. need to add sound. have the Corridor layer in front and have the player go in and out.
+- 3.6 Jenet: use "space" to jump/steal light.
+- 3.6 Erin: pace can be faster. words-on-wall can be short quotes, do not need a complex story. Erin missed the tutorial for the first time because she pressed space too many times to try to start the game. Erin also tried to use "space" to jump/steal light.
+- 3.6 Sharan: goal wasn't very intuitive at first.
