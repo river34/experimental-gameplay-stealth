@@ -36,6 +36,10 @@
 - playtest with Xuesong, Sunil, Chirag
 - possible fix for the floating-in-the-air problem reported by Chirag
 - playtest with Maya, Jenet, Erin, Sharan
+- playtest with Dave, Jesse
+- Use "space" to jump
+- Fix sight local position problem
+- Enable sight movement for running left
 
 # Playtest
 - 3.3 Xuesong: make the sight more narrow. give more control of the rotation.
@@ -50,3 +54,5 @@
 - 3.6 Jenet: use "space" to jump/steal light.
 - 3.6 Erin: pace can be faster. words-on-wall can be short quotes, do not need a complex story. Erin missed the tutorial for the first time because she pressed space too many times to try to start the game. Erin also tried to use "space" to jump/steal light.
 - 3.6 Sharan: goal wasn't very intuitive at first.
+- 3.8 Dave: make "sight" more light vision instead of light. let guest to use sight rotation aggressively - let it totally restrict your vision so that you have to rotate. let playtesters to describe the experience back to you.
+- 3.8 Jesse: chrome gpu/rendering problem. use "space" to jump. enable full rotation of sight (left).
