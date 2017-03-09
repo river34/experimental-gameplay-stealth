@@ -70,7 +70,7 @@ public class InputController : MonoBehaviour {
 
 		if (game.GetState () == States.TUTORIAL || game.GetState () == States.GAME)
 		{
-			if (Input.GetKey ("w") || Input.GetKey ("up"))
+			if (Input.GetKey ("w") || Input.GetKey ("up") || Input.GetKey ("space"))
 			{
 				player.Stand ();
 				player.SetUp ();
@@ -125,29 +125,22 @@ public class InputController : MonoBehaviour {
 
 			if (is_using_mouse) // Input.GetMouseButton (0) - mouse left button down
 			{
-				if (is_right)
+				Vector3 position = Camera.main.WorldToScreenPoint (sight.GetPosition ());
+				Vector3 direction = Input.mousePosition - position;
+				float angle = Mathf.Atan2 (direction.y, direction.x) * Mathf.Rad2Deg;
+
+				/*
+				if (angle > max_angle)
 				{
-					Vector3 position = Camera.main.WorldToScreenPoint (sight.GetPosition ());
-					Vector3 direction = Input.mousePosition - position;
-					float angle = Mathf.Atan2 (direction.y, direction.x) * Mathf.Rad2Deg;
-
-					/*
-					if (angle > max_angle)
-					{
-						angle = max_angle;
-					}
-					else if (angle < min_angle)
-					{
-						angle = min_angle;
-					}
-					*/
-
-					sight.Rotate (angle);
+					angle = max_angle;
 				}
-				else
+				else if (angle < min_angle)
 				{
-
+					angle = min_angle;
 				}
+				*/
+
+				sight.Rotate (angle);
 			}
 		}
 

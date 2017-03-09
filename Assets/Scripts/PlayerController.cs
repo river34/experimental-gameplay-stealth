@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour {
 	private float up_time_limit;
 	private float position_y_last_frame;
 	public bool is_going_down;
+	public GameObject shadow;
 
 	private bool is_using_sightline;
 	private float sightline_disable_time_start;
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour {
 		collider = GetComponent <Collider2D> ();
 		original_collider_offset = collider.offset;
         sight = transform.Find ("Sight");
-		original_sight_position = sight.position;
+		original_sight_position = sight.localPosition;
 		speed = 3f;
 		is_in_light = false;
 		is_in_light_buffer = new List<bool> ();
@@ -89,6 +90,9 @@ public class PlayerController : MonoBehaviour {
 		up_time_limit = 0.5f;
 		position_y_last_frame = transform.position.y;
 		is_going_down = false;
+		shadow = new GameObject ("Shadow");
+		shadow.transform.position = transform.position;
+		sight.transform.parent = shadow.transform;
 
 		// sightline
 		is_using_sightline = false;
@@ -120,6 +124,7 @@ public class PlayerController : MonoBehaviour {
 		{
 			sightline_disable_time_limit = 0;
 		}
+		shadow.transform.position = transform.position;
 	}
 
 	public void Move (float x)
@@ -339,13 +344,13 @@ public class PlayerController : MonoBehaviour {
 			animator.SetBool ("IsRunning", true);
 		}
 		/*
-		if (sight.position.x < original_sight_position.x + 0.2f)
+		if (sight.localPosition.x < original_sight_position.x + 0.2f)
 		{
-			sight.position += Vector3.right * Time.deltaTime * 1f;
+			sight.localPosition += Vector3.right * Time.deltaTime * 1f;
 		}
-		if (sight.position.y > original_sight_position.y - 0.2f)
+		if (sight.localPosition.y > original_sight_position.y - 0.2f)
 		{
-			sight.position += Vector3.down * Time.deltaTime * 1f;
+			sight.localPosition += Vector3.down * Time.deltaTime * 1f;
 		}
 		*/
 	}
@@ -357,13 +362,13 @@ public class PlayerController : MonoBehaviour {
 			animator.SetBool ("IsRunning", false);
 		}
 		/*
-		if (sight.position.x > original_sight_position.x)
+		if (sight.localPosition.x > original_sight_position.x)
 		{
-			sight.position += Vector3.left * Time.deltaTime * 1f;
+			sight.localPosition += Vector3.left * Time.deltaTime * 1f;
 		}
-		if (sight.position.y < original_sight_position.y)
+		if (sight.localPosition.y < original_sight_position.y)
 		{
-			sight.position += Vector3.up * Time.deltaTime * 1f;
+			sight.localPosition += Vector3.up * Time.deltaTime * 1f;
 		}
 		*/
 	}
@@ -374,15 +379,15 @@ public class PlayerController : MonoBehaviour {
 		{
 			animator.SetBool ("IsHiding", true);
 			// collider.offset += Vector2.down;
-			// sight.position += Vector3.down;
+			// sight.localPosition += Vector3.down;
 		}
 		if (collider.offset.y > original_collider_offset.y - 1f)
 		{
 			collider.offset += Vector2.down * Time.deltaTime * 8f;
 		}
-		if (sight.position.y > original_sight_position.y - 1f)
+		if (sight.localPosition.y > original_sight_position.y - 1f)
 		{
-			sight.position += Vector3.down * Time.deltaTime * 8f;
+			sight.localPosition += Vector3.down * Time.deltaTime * 8f;
 		}
 	}
 
@@ -392,15 +397,15 @@ public class PlayerController : MonoBehaviour {
 		{
 			animator.SetBool ("IsHiding", false);
 			// collider.offset = original_collider_offset;
-			// sight.position = original_sight_position;
+			// sight.localPosition = original_sight_position;
 		}
 		if (collider.offset.y < original_collider_offset.y)
 		{
 			collider.offset += Vector2.up * Time.deltaTime * 5f;
 		}
-		if (sight.position.y < original_sight_position.y)
+		if (sight.localPosition.y < original_sight_position.y)
 		{
-			sight.position += Vector3.up * Time.deltaTime * 5f;
+			sight.localPosition += Vector3.up * Time.deltaTime * 5f;
 		}
 	}
 
