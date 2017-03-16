@@ -76,6 +76,9 @@ public class GameController : MonoBehaviour {
 	public int state;
 	public int highest_score;
 
+	// sound
+	private SoundManager soundManager;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -138,6 +141,9 @@ public class GameController : MonoBehaviour {
 		state = 0;
 		score = 0;
 		highest_score = 0;
+
+		// sound
+		soundManager = GetComponent <SoundManager> ();
 	}
 
 	// Update is called once per frame
@@ -178,6 +184,7 @@ public class GameController : MonoBehaviour {
 			}
 			if (is_start && Time.time - start_time > 1f)
 			{
+				soundManager.PlayBackground ();
 				state = States.TUTORIAL;
 			}
 		}
@@ -277,6 +284,7 @@ public class GameController : MonoBehaviour {
 
 	public void End ()
 	{
+		soundManager.StopBackground ();
 		blink_color = death_color;
 		is_blinked = false;
 		blink_start_time = Time.time;
@@ -352,6 +360,7 @@ public class GameController : MonoBehaviour {
 		}
 
 		RespawnLevel ();
+		soundManager.PlayBackground ();
 		state = States.GAME;
 	}
 

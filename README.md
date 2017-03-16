@@ -18,15 +18,16 @@
 
   - Engineer: River Liu
   - Artist: River Liu
+  - Musician/Sound Designer: Sunil Nayak
   - Playtesters: Xuesong Liang, Sunil Nayak, Abhishek Ambre, Emre Findik, Colin Andrew Grant, Chirag Salian, Jenet Liu, Sharan Shodhan, Arun Abraham, Maya Mahalingam, Erin Hoffman-John, Dave Culyba, Jesse Schell
 
 
-#### Fonts:
+### Fonts
 
   - [Prince of Persia Regular](http://www.fontspace.com/fereydoun/princeofpersia)
 
 
-#### References:
+### References
 
   - Journey (2012)
   - Mark of the Ninja (2012)

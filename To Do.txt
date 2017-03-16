@@ -1,9 +1,7 @@
 # To Do
 - more playtest
-- audio track (sunil)
 - embed the story in gameplay. add words on wall
 - restrict the use of mouse/keys for the introduction so that player will not miss the tutorial
-- use "space" to jump
 
 # Done
 - 6 levelcards (0-5)
@@ -40,6 +38,7 @@
 - Use "space" to jump
 - Fix sight local position problem
 - Enable sight movement for running left
+- audio track (sunil)
 
 # Playtest
 - 3.3 Xuesong: make the sight more narrow. give more control of the rotation.

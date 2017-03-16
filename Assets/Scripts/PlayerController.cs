@@ -48,6 +48,11 @@ public class PlayerController : MonoBehaviour {
 	private bool is_sightline_disabled;
 	private bool is_sightline_disabled_last_frame;
 
+	// sound
+	public AudioClip[] stealSmallLight;
+	public AudioClip[] stealBigLight;
+	private SoundManager soundManager;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -100,6 +105,9 @@ public class PlayerController : MonoBehaviour {
 		sightline_disable_time_limit_base = 1f;
 		sightline_disable_time_limit = 0;
 		is_sightline_disabled = false;
+
+		// sound
+		soundManager = GameObject.Find ("Root").GetComponent <SoundManager> ();
 	}
 
 	// Update is called once per frame
@@ -279,12 +287,14 @@ public class PlayerController : MonoBehaviour {
 			game.AddScore (Tags.OBJECTIVE_SMALL);
 			Destroy (other.gameObject);
 			game.LightUp ();
+			soundManager.RandomizeEffect (stealSmallLight);
 		}
 		if (other.gameObject.CompareTag (Tags.OBJECTIVE))
 		{
 			game.AddScore (Tags.OBJECTIVE);
 			Destroy (other.gameObject);
 			game.LightUp ();
+			soundManager.RandomizeEffect (stealBigLight);
 		}
 		if (other.gameObject.name == "Ground")
 		{
