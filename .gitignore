@@ -8,7 +8,6 @@ Assembly-CSharp.csproj
 Library/
 Temp/
 ProjectSettings/
-*.meta
 
 ## Build
 Build/
